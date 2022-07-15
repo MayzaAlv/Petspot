@@ -1,0 +1,60 @@
+﻿@model List<Owner>
+@using Microsoft.AspNetCore.Identity
+@using Petspot.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "Owners";
+}
+<h2 class="text-center mb-5 border-bottom">@ViewData["Title"]</h2>
+
+@if (Model != null && Model.Any())
+{
+    <div class="row">
+        @foreach (Owner owner in Model)
+        {
+            <div class="col-sm-4">
+                <div class="card border-info bg-info bg-opacity-10 mb-4">
+                    <div class="card-body">
+                        @if (owner.Pets.Count() > 0)
+                        {
+                            if (owner.Pets.FirstOrDefault(pet => pet.ImageName != "") != null)
+                            {
+                                <img src="@("~/images/dbImages/" + owner.Pets.First(pet => pet.ImageName != null).ImageName)" asp-append-version="true" class="rounded-circle card-img float-start ms-0 border border-info" alt="Pet's Photo" style="width: 150px; height: 125px;" />
+                            }
+                        }
+                        <h5 class="card-title d-inline me-1"><a class="text-decoration-none text-black" href="~/owner/details/@owner.Id">@owner.Name</a></h5>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <a asp-controller="Owner" asp-action="Edit" asp-route-id="@owner.Id"><i class="bi bi-pen-fill"></i></a>
+                            <a asp-controller="Owner" asp-action="Delete" asp-route-id="@owner.Id"><i class="bi bi-person-x-fill"></i></a>
+                        }
+                        <div class="d-flex flex-column mt-1">
+                            @foreach (Pet pet in owner.Pets)
+                            {
+                                <div class="d-flex flex-row mb-1">
+                                    <a href="~/pet/details/@pet.Id" class="ms-1 text-decoration-none me-auto px-2">@pet.Name</a>
+                                    @if (SignInManager.IsSignedIn(User)) 
+                                    {
+                                        <div>
+                                            <a class="card-text" asp-controller="Pet" asp-action="Edit" asp-route-id="@pet.Id"><i class="bi bi-pencil-fill"></i></a>
+                                            <a class="card-text" asp-controller="Pet" asp-action="Delete" asp-route-id="@pet.Id"><i class="bi bi-trash3-fill"></i></a>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <img src="~/images/404Error.png" class="rounded mx-auto d-block h-50 w-50">
+}
+
+
+

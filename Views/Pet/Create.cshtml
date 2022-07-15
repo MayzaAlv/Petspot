@@ -1,0 +1,98 @@
+﻿@model Pet
+
+@{
+    ViewData["Title"] = "Create Pet";
+}
+
+
+
+<style>
+    body {
+        background-image: url('/images/imagesService/catBackground.png');
+        background-repeat:no-repeat;
+        background-size: 100% 110%;
+    }
+</style>
+<div class="container mt-4">
+    <div class="card shadow" style="border-radius: 20px;">
+        <h1 class="text-center mb-0 mt-3">@ViewData["Title"]</h1>
+        <div class="card-content">
+            <div class="card-body p-4 p-md-4 m-4 mt-2">
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <label asp-for="ImageFile" class="float-start me-3 mt-3">
+                        <img class="file icon-image border border-secondary" id="previewImg" src="~/images/imagesService/notfound.png" />
+                    </label>
+                    <input asp-for="ImageFile" class="d-none" type="file" accept="image/*" onchange="previewFile(this);" />
+                    <div class="row">
+                        <div class="col-md-6 mb-4 mt-auto">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-4 mt-auto">
+                            <label asp-for="Nickname" class="control-label"></label>
+                            <input asp-for="Nickname" class="form-control" />
+                            <span asp-validation-for="Nickname" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 mb-4">
+                            <label asp-for="Birthday" class="control-label"></label>
+                            <input asp-for="Birthday" class="form-control" />
+                            <span asp-validation-for="Birthday" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <label asp-for="Gender" class="control-label"></label>
+                            <select asp-for="Gender" name="Gender" class="form-select">
+                                <option value="">Choose...</option>
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                            </select>
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <label asp-for="Specie" class="control-label"></label>
+                            <input asp-for="Specie" class="form-control" />
+                            <span asp-validation-for="Specie" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <label asp-for="Owner" class="control-label"></label>
+                            <div class="d-flex">
+                                <select asp-for="OwnerId" class="form-control" asp-items="ViewBag.OwnerId"></select>
+                                <a asp-controller="Owner" asp-action="Create" class="fs-5 ms-2 text-black">
+                                    <i class="bi bi-person-plus-fill"></i>
+                                </a>
+                            </div>
+                            <span asp-validation-for="Owner" class="text-danger"></span>
+                        </div>
+                        <div class="row p-0 m-0">
+                            <div class="col-md-6">
+                                <label asp-for="Vaccine" class="control-label"></label>
+                                <textarea type="text" asp-for="Vaccine" class="form-control textarea-unresize" rows="2"></textarea>
+                                <span asp-validation-for="Vaccine" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Observation" class="control-label"></label>
+                                <textarea type="text" asp-for="Observation" id="observation" class="form-control textarea-unresize" rows="2"></textarea>
+                                <span asp-validation-for="Observation" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="d-flex justify-content-end pt-3">
+                            <a type="button" asp-controller="Home" asp-action="Index" class="btn btn-outline-danger btn-md m-1 rounded-pill">Cancel</a>
+                            <button type="submit" class="btn btn-primary btn-md m-1 rounded-pill">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

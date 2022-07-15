@@ -1,0 +1,75 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Petspot.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@model Pet
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    body {
+        background-image: url('/images/imagesService/catBackground.png');
+        background-repeat:no-repeat;
+        background-size: 100% 110%;
+    }
+</style>
+<div class="container mt-5">
+    <div class="card shadow" style="border-radius: 20px">
+        <h1 class="text-center mb-0 mt-3">@ViewData["Title"] @Model.Name</h1>
+        <div class="card-content">
+            <div class="card-body p-4 p-md-4 m-4 mt-3">
+                <label asp-for="ImageFile" class="float-start me-3 mt-0">
+                    <img src="@("~/images/dbImages/" + Model.ImageName)" asp-append-version="true" class="file mb-5 icon-image border border-secondary" id="previewImg" alt="Pet's Photo"/>
+                </label>
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-4 mt-auto">
+                        <label asp-for="Nickname" class="fw-bold"></label>:
+                        @Model.Nickname
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label asp-for="Birthday" class="control-label fw-bold"></label>:
+                        @Model.Birthday.ToShortDateString()
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <label asp-for="Gender" class="control-label fw-bold"></label>:
+                        @Model.Gender
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label asp-for="Specie" class="control-label fw-bold"></label>:
+                        @Model.Specie
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <label asp-for="Owner" class="control-label fw-bold"></label>:
+                        <a asp-controller="Owner" asp-action="Details" asp-route-id="@Model.Owner.Id">@Model.Owner.Name</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="Vaccine" class="control-label fw-bold"></label>:
+                        <textarea type="text" asp-for="Vaccine" class="form-control textarea-unresize" rows="2" disabled></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Observation" class="control-label fw-bold"></label>:
+                        <textarea type="text" asp-for="Observation" id="observation" class="form-control textarea-unresize" rows="2" disabled></textarea>
+                    </div>
+                </div>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <div class="d-flex justify-content-end pt-3">
+                        <a type="button" asp-controller="Home" asp-action="Index" class="btn btn-outline-danger btn-md m-1 rounded-pill">Cancel</a>
+                        <a type="button" asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary btn-md m-1 rounded-pill">Edit</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

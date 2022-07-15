@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Petspot.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="row g-5 align-items-center">
+        <div class="col-lg-6 text-center text-lg-start">
+            
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <h1 class="text-black mb-4">Welcome, 
+                    <a class="text-capitalize text-decoration-none text-black">
+                        @UserManager.Users.FirstOrDefault(name => name.Email == UserManager.GetUserName(User)).FirstName
+                    </a>
+                </h1>
+            }
+            else
+            {
+                <h1 class="text-black mb-4">We really care about your pet's well-being!</h1>
+            }
+
+            <p class="text-black pb-3">Rebum no at dolore lorem clita rebum rebum ipsum rebum stet dolor sed justo kasd. Ut dolor sed magna dolor sea diam. Sit diam sit justo amet ipsum vero ipsum clita lorem</p>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <a role="button" class="btn btn-primary rounded-pill" asp-controller="Pet" asp-action="Create">Register Pet</a>
+                <a role="button" class="btn btn-primary rounded-pill" asp-controller="Owner" asp-action="Create">Register Owner</a>
+            }     
+        </div>
+        <div class="col-lg-6 text-center text-lg-start">
+            <img class="img-fluid mt-5" src="https://www.kindnessoftulsa.com/wp-content/uploads/2018/01/Layer-23.png" alt="">
+        </div>
+    </div>
+</div>

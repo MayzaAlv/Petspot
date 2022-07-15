@@ -1,0 +1,79 @@
+﻿@model Owner
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    body {
+        background-image: url('/images/imagesService/dogBackground.png');
+        background-repeat:no-repeat;
+        background-size:cover;
+    }
+</style>
+
+<div class="container mt-3" style="width: 550px">
+    <div class="card shadow" style="border-radius: 20px">
+        <h1 class="text-center mt-2">@ViewData["Title"]</h1>
+        <h3 class="text-center mb-0">Are you sure you want to delete this?</h3>
+        <div class="card-content">
+            <div class="card-body p-4 p-md-4 m-5 mt-5 mb-2">
+                <div class="row">
+                    <div class="col-md-6 mb-4 mt-auto">
+                        <label asp-for="Name" class="control-label fw-bold"></label>
+                        <p>@Model.Name</p>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label asp-for="PhoneNumber" class="control-label fw-bold"></label>
+                        <p>@Model.PhoneNumber</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <label asp-for="Address" class="control-label fw-bold"></label>
+                        <p>@Model.Address</p>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label asp-for="District" class="control-label fw-bold"></label>
+                        <p>@Model.District</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="City" class="control-label fw-bold"></label>
+                        <p>@Model.City</p>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label asp-for="State" class="control-label fw-bold"></label>
+                        <p>@Model.State</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="control-label fw-bold"></label>
+                        <p>@Model.Email</p>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Pets" class="control-label fw-bold"></label>
+                        @foreach (Pet pet in Model.Pets)
+                        {
+                            <p><a asp-controller="Pet" asp-action="Details" asp-route-id="@pet.Id">@pet.Name</a>    </p>
+                        }
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end pt-3 mt-4">
+                    <a type="button" asp-controller="Home" asp-action="Index" class="btn btn-outline-danger btn-md m-1 rounded-pill">Cancel</a>
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Delete" class="btn btn-danger btn-md m-1 rounded-pill" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</div>
