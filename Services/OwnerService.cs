@@ -13,7 +13,12 @@ namespace Petspot.Services
             _context = context;
         }
 
-        public async Task<Owner> Details(int? id)
+        /// <summary>
+        /// Get the details of owner
+        /// </summary>
+        /// <param name="id">Id of owner</param>
+        /// <returns></returns>
+        public async Task<Owner> Details(Guid? id)
         {
             var owner = await _context.Owners
             .FirstOrDefaultAsync(m => m.Id == id);
@@ -25,6 +30,11 @@ namespace Petspot.Services
             return owner;
         }
 
+        /// <summary>
+        /// Create the owner
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <returns></returns>
         public async Task<Owner> Create(Owner owner)
         {
             try
@@ -45,7 +55,12 @@ namespace Petspot.Services
             }
         }
 
-        public async Task<Owner> EditGet(int? id)
+        /// <summary>
+        /// Show the owner to be edited
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Owner> EditGet(Guid? id)
         {
             var owner = await _context.Owners.FindAsync(id);
 
@@ -56,7 +71,13 @@ namespace Petspot.Services
             return owner;
         }
 
-        public async Task<Owner> EditPost(int id, Owner owner)
+        /// <summary>
+        /// Edit the owner and save
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="owner"></param>
+        /// <returns></returns>
+        public async Task<Owner> EditPost(Guid? id, Owner owner)
         {
             if (id != owner.Id)
             {
@@ -82,7 +103,12 @@ namespace Petspot.Services
             return owner;
         }
 
-        public async Task<Owner> DeleteGet(int? id)
+        /// <summary>
+        /// Show the owner to be deleted
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Owner> DeleteGet(Guid? id)
         {
             var owner = await _context.Owners
             .FirstOrDefaultAsync(m => m.Id == id);
@@ -94,7 +120,12 @@ namespace Petspot.Services
             return owner;
         }
 
-        public async Task<Owner> DeletePost(int id)
+        /// <summary>
+        /// Delete the owner
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Owner> DeletePost(Guid? id)
         {
             try
             {
@@ -116,7 +147,12 @@ namespace Petspot.Services
             }
         }
 
-        private bool OwnerExists(int id)
+        /// <summary>
+        /// Verify if the owner exists
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private bool OwnerExists(Guid? id)
         {
             return (_context.Owners?.Any(e => e.Id == id)).GetValueOrDefault();
         }

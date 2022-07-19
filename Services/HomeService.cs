@@ -11,6 +11,11 @@ namespace Petspot.Services
             _context = context;
         }
 
+        /// <summary>
+        /// Search the owners
+        /// </summary>
+        /// <param name="Owner"></param>
+        /// <returns></returns>
         public List<Owner> Search(string Owner)
         {
             List<Owner> owners = _context.Owners.ToList();

@@ -18,7 +18,7 @@ namespace Petspot.Controllers
 
         // GET: Pet/Details/5
         [AllowAnonymous]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             var result = await _petService.Details(id);
             if (result == null)
@@ -45,7 +45,7 @@ namespace Petspot.Controllers
         }
 
         // GET: Pet/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             var result = await _petService.EditGet(id);
             if (result == null)
@@ -60,7 +60,7 @@ namespace Petspot.Controllers
         // POST: Pet/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Pet pet)
+        public async Task<IActionResult> Edit(Guid? id, Pet pet)
         {
             var result = await _petService.EditPost(id, pet);
             if (result == null)
@@ -71,7 +71,7 @@ namespace Petspot.Controllers
         }
 
         // GET: Pet/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             var result = await _petService.DeleteGet(id);
             if (result == null)
@@ -84,7 +84,7 @@ namespace Petspot.Controllers
         // POST: Pet/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid? id)
         {
             var result = await _petService.DeletePost(id);
             if (result == null)

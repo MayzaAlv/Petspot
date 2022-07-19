@@ -15,7 +15,12 @@ namespace Petspot.Services
             _hostEnvironment = hostEnvironment;
         }
 
-        public async Task<Pet> Details(int? id)
+        /// <summary>
+        /// Get the details of pet
+        /// </summary>
+        /// <param name="id">Id of pet</param>
+        /// <returns></returns>
+        public async Task<Pet> Details(Guid? id)
         {
             var pet = await _context.Pets
                 .Include(p => p.Owner)
@@ -27,17 +32,22 @@ namespace Petspot.Services
             return pet;
         }
 
+        /// <summary>
+        /// Create the pet
+        /// </summary>
+        /// <param name="pet"></param>
+        /// <returns></returns>
         public async Task<Pet> Create(Pet pet)
         {
             try
             {
-                if (pet.ImageName == "")
+                if (pet.ImageName == null)
                 {
-                    pet = await imagePet(pet);
+                    pet.ImageName = "notfound.png";
                 }
                 else
                 {
-                    pet.ImageName = "notfound.png";
+                    pet = await imagePet(pet);
                 }
                 _context.Add(pet);
                 await _context.SaveChangesAsync();
@@ -49,7 +59,12 @@ namespace Petspot.Services
             }
         }
 
-        public async Task<Pet> EditGet(int? id)
+        /// <summary>
+        /// Show the pet to be edited
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Pet> EditGet(Guid? id)
         {
             var pet = await _context.Pets.FindAsync(id);
             if (pet == null)
@@ -59,11 +74,17 @@ namespace Petspot.Services
             return pet;
         }
 
-        public async Task<Pet> EditPost(int id, Pet pet)
+        /// <summary>
+        /// Edit the pet
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="pet"></param>
+        /// <returns></returns>
+        public async Task<Pet> EditPost(Guid? id, Pet pet)
         {
             try
             {
-                if (pet.ImageName == "")
+                if (pet.ImageFile != null)
                 {
                     pet = await imagePet(pet);
                 }
@@ -84,7 +105,12 @@ namespace Petspot.Services
             return pet;
         }
 
-        public async Task<Pet> DeleteGet(int? id)
+        /// <summary>
+        /// Show the pet to be deleted
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Pet> DeleteGet(Guid? id)
         {
             var pet = await _context.Pets
                     .Include(p => p.Owner)
@@ -97,7 +123,13 @@ namespace Petspot.Services
             return pet;
         }
 
-        public async Task<Pet> DeletePost(int id)
+
+        /// <summary>
+        /// Delete the pet
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Pet> DeletePost(Guid? id)
         {
             try
             {
@@ -119,16 +151,30 @@ namespace Petspot.Services
             }
         }
 
+        /// <summary>
+        /// List all owners
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Owner> Owners()
         {
             return _context.Owners;
         }
 
-        private bool PetExists(int id)
+        /// <summary>
+        /// Verify if pet exists
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private bool PetExists(Guid? id)
         {
             return (_context.Pets?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
+        /// <summary>
+        /// Save the image to file and database
+        /// </summary>
+        /// <param name="pet"></param>
+        /// <returns></returns>
         private async Task<Pet> imagePet(Pet pet)
         {
             string wwwRootPath = _hostEnvironment.WebRootPath;

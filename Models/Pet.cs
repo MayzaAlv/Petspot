@@ -7,7 +7,7 @@ namespace Petspot.Models
     {
         [Key]
         [Required]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
@@ -22,7 +22,7 @@ namespace Petspot.Models
         public string? Observation { get; set; }
         public string? Vaccine { get; set; }
         [Required]
-        public int OwnerId { get; set; }
+        public Guid? OwnerId { get; set; }
         public virtual Owner Owner { get; set; }
         public string ImageName { get; set; }
         [NotMapped]

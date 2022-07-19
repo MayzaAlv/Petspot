@@ -13,6 +13,13 @@ namespace Petspot.Services
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Create the message
+        /// </summary>
+        /// <param name="recipient"></param>
+        /// <param name="subject"></param>
+        /// <param name="usernames"></param>
+        /// <param name="url"></param>
         public void SendEmail(string[] recipient, string subject,
             string[] usernames, string url)
         {
@@ -23,6 +30,10 @@ namespace Petspot.Services
             Send(messageEmail);
         }
 
+        /// <summary>
+        /// Send the email
+        /// </summary>
+        /// <param name="messageEmail">message to send</param>
         private void Send(MimeMessage messageEmail)
         {
             using (var client = new SmtpClient())
@@ -48,6 +59,11 @@ namespace Petspot.Services
             }
         }
 
+        /// <summary>
+        /// Create the body of email
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns>Message to be send</returns>
         private MimeMessage CreateEmailBody(Message message)
         {
             var messageEmail = new MimeMessage();
