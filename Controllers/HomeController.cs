@@ -7,9 +7,9 @@ namespace Petspot.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly HomeService _homeService;
+        private readonly IHomeService _homeService;
 
-        public HomeController(HomeService homeService)
+        public HomeController(IHomeService homeService)
         {
             _homeService = homeService;
         }

@@ -1,9 +1,9 @@
 ﻿using Petspot.Areas.Identity.Data;
 using Petspot.Models;
 
-namespace Petspot.Services
+namespace Petspot.Services.Handlers
 {
-    public class HomeService
+    public class HomeService : IHomeService
     {
         private readonly ApplicationDbContext _context;
         public HomeService(ApplicationDbContext context)
@@ -20,7 +20,7 @@ namespace Petspot.Services
         {
             List<Owner> owners = _context.Owners.ToList();
 
-            if (!String.IsNullOrEmpty(Owner))
+            if (!string.IsNullOrEmpty(Owner))
             {
                 owners = owners.Where(s => s.Name!
                 .Contains(Owner, StringComparison.OrdinalIgnoreCase)).ToList();

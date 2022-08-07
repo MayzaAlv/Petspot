@@ -19,9 +19,9 @@ namespace Petspot.Areas.Identity.Pages.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
-        private readonly EmailService _emailService;
+        private readonly IEmailService _emailService;
 
-        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender, EmailService emailService)
+        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender, IEmailService emailService)
         {
             _userManager = userManager;
             _emailSender = emailSender;

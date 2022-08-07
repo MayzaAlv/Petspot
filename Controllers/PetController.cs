@@ -9,9 +9,9 @@ namespace Petspot.Controllers
     [Authorize]
     public class PetController : Controller
     {
-        private readonly PetService _petService;
+        private readonly IPetService _petService;
 
-        public PetController(PetService petService)
+        public PetController(IPetService petService)
         {
             _petService = petService;
         }

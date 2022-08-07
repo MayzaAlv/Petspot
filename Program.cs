@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Petspot.Areas.Identity.Data;
 using Petspot.Services;
+using Petspot.Services.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
@@ -13,10 +14,10 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 // Services
-builder.Services.AddScoped<HomeService, HomeService>();
-builder.Services.AddScoped<OwnerService, OwnerService>();
-builder.Services.AddScoped<PetService, PetService>();
-builder.Services.AddScoped<EmailService, EmailService>();
+builder.Services.AddScoped<IHomeService, HomeService>();
+builder.Services.AddScoped<IOwnerService, OwnerService>();
+builder.Services.AddScoped<IPetService, PetService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

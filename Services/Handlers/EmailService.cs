@@ -2,9 +2,9 @@
 using MimeKit;
 using Petspot.Models;
 
-namespace Petspot.Services
+namespace Petspot.Services.Handlers
 {
-    public class EmailService
+    public class EmailService : IEmailService
     {
         private IConfiguration _configuration;
 

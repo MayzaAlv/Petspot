@@ -8,9 +8,9 @@ namespace Petspot.Controllers
     [Authorize]
     public class OwnerController : Controller
     {
-        private readonly OwnerService _ownerService;
+        private readonly IOwnerService _ownerService;
 
-        public OwnerController(OwnerService ownerService)
+        public OwnerController(IOwnerService ownerService)
         {
             _ownerService = ownerService;
         }

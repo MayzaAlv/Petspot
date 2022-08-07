@@ -2,9 +2,9 @@
 using Petspot.Areas.Identity.Data;
 using Petspot.Models;
 
-namespace Petspot.Services
+namespace Petspot.Services.Handlers
 {
-    public class OwnerService
+    public class OwnerService : IOwnerService
     {
         private readonly ApplicationDbContext _context;
 
